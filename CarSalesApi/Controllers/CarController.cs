@@ -16,9 +16,44 @@ namespace CarSalesApi.Controllers
         // GET api/<controller>
         public HttpResponseMessage Get()
         {
-            var cars = db.GetCars();
-
+            var cars = db.GetAllCars();
             return Request.CreateResponse(HttpStatusCode.OK, cars);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var locations = db.GetAllLocations();
+            return Request.CreateResponse(HttpStatusCode.OK, locations);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var salepersons = db.GetAllSalespersons();
+            return Request.CreateResponse(HttpStatusCode.OK, salespersons);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var sales = db.GetAllSales();
+            return Request.CreateResponse(HttpStatusCode.OK, sales);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var customers = db.GetAllCustomers();
+            return Request.CreateResponse(HttpStatusCode.OK, customers);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var customerPhones = db.GetAllCustomerPhones();
+            return Request.CreateResponse(HttpStatusCode.OK, customerPhones);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            var phones = db.GetAllPhones();
+            return Request.CreateResponse(HttpStatusCode.OK, phones);
         }
 
         // GET api/<controller>/5
