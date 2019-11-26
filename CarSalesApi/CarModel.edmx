@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarSalesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarColor" Type="varchar" MaxLength="50" />
+          <Property Name="CarType" Type="varchar" MaxLength="50" />
+          <Property Name="CarModel" Type="varchar" MaxLength="50" />
+          <Property Name="CarPrice" Type="money" />
+          <Property Name="CarCommission" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerLastName" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerPhoneId" Type="int" />
+          <Property Name="CustomerAddress" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerDob" Type="date" />
+        </EntityType>
+        <EntityType Name="Customer_Phone">
+          <Key>
+            <PropertyRef Name="CustomerPhoneId" />
+          </Key>
+          <Property Name="CustomerPhoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="PhoneId" Type="int" Nullable="false" />
+          <Property Name="CustomerPhoneType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationStateProv" Type="varchar" MaxLength="50" />
+          <Property Name="LocationAddress" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Phoneid" />
+          </Key>
+          <Property Name="Phoneid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleId" />
+          </Key>
+          <Property Name="SaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CarId" Type="int" Nullable="false" />
+          <Property Name="SalespersonId" Type="int" Nullable="false" />
+          <Property Name="SaleDate" Type="date" />
+          <Property Name="SaleTotal" Type="money" />
+          <Property Name="SaleQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Salesperson">
+          <Key>
+            <PropertyRef Name="SalespersonId" />
+          </Key>
+          <Property Name="SalespersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesersonFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="SalesersonLastName" Type="varchar" MaxLength="50" />
+          <Property Name="SalespersonAddress" Type="varchar" MaxLength="50" />
+          <Property Name="SalespersonPhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customer_Phone_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Customer_Phone">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Phone_Phone">
+          <End Role="Phone" Type="Self.Phone" Multiplicity="1" />
+          <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phone">
+              <PropertyRef Name="Phoneid" />
+            </Principal>
+            <Dependent Role="Customer_Phone">
+              <PropertyRef Name="PhoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Salesperson">
+          <End Role="Salesperson" Type="Self.Salesperson" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salesperson">
+              <PropertyRef Name="SalespersonId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="SalespersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salesperson_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Salesperson" Type="Self.Salesperson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Salesperson">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarSalesDBModelStoreContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_Phone" EntityType="Self.Customer_Phone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salesperson" EntityType="Self.Salesperson" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_Phone_Customer" Association="Self.FK_Customer_Phone_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Phone_Phone" Association="Self.FK_Customer_Phone_Phone">
+            <End Role="Phone" EntitySet="Phone" />
+            <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Car" Association="Self.FK_Sale_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Customer" Association="Self.FK_Sale_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Salesperson" Association="Self.FK_Sale_Salesperson">
+            <End Role="Salesperson" EntitySet="Salesperson" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salesperson_Location" Association="Self.FK_Salesperson_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Salesperson" EntitySet="Salesperson" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarSalesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarModel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CarCommission" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Car" FromRole="Car" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPhoneId" Type="Int32" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerDob" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer_Phone" Relationship="Self.FK_Customer_Phone_Customer" FromRole="Customer" ToRole="Customer_Phone" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Customer" FromRole="Customer" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Customer_Phone">
+          <Key>
+            <PropertyRef Name="CustomerPhoneId" />
+          </Key>
+          <Property Name="CustomerPhoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="PhoneId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerPhoneType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Phone_Customer" FromRole="Customer_Phone" ToRole="Customer" />
+          <NavigationProperty Name="Phone" Relationship="Self.FK_Customer_Phone_Phone" FromRole="Customer_Phone" ToRole="Phone" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationStateProv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Salespersons" Relationship="Self.FK_Salesperson_Location" FromRole="Location" ToRole="Salesperson" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Phoneid" />
+          </Key>
+          <Property Name="Phoneid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer_Phone" Relationship="Self.FK_Customer_Phone_Phone" FromRole="Phone" ToRole="Customer_Phone" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleId" />
+          </Key>
+          <Property Name="SaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CarId" Type="Int32" Nullable="false" />
+          <Property Name="SalespersonId" Type="Int32" Nullable="false" />
+          <Property Name="SaleDate" Type="DateTime" Precision="0" />
+          <Property Name="SaleTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SaleQuantity" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Sale_Car" FromRole="Sale" ToRole="Car" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Sale_Customer" FromRole="Sale" ToRole="Customer" />
+          <NavigationProperty Name="Salesperson" Relationship="Self.FK_Sale_Salesperson" FromRole="Sale" ToRole="Salesperson" />
+        </EntityType>
+        <EntityType Name="Salesperson">
+          <Key>
+            <PropertyRef Name="SalespersonId" />
+          </Key>
+          <Property Name="SalespersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesersonFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalesersonLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalespersonAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalespersonPhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Salesperson_Location" FromRole="Salesperson" ToRole="Location" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Salesperson" FromRole="Salesperson" ToRole="Sale" />
+        </EntityType>
+        <Association Name="FK_Sale_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Phone_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Customer_Phone">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Phone_Phone">
+          <End Role="Phone" Type="Self.Phone" Multiplicity="1" />
+          <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phone">
+              <PropertyRef Name="Phoneid" />
+            </Principal>
+            <Dependent Role="Customer_Phone">
+              <PropertyRef Name="PhoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salesperson_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Salesperson" Type="Self.Salesperson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Salesperson">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Salesperson">
+          <End Role="Salesperson" Type="Self.Salesperson" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salesperson">
+              <PropertyRef Name="SalespersonId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="SalespersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarSalesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Customer_Phone" EntityType="Self.Customer_Phone" />
+          <EntitySet Name="Locations" EntityType="Self.Location" />
+          <EntitySet Name="Phones" EntityType="Self.Phone" />
+          <EntitySet Name="Sales" EntityType="Self.Sale" />
+          <EntitySet Name="Salespersons" EntityType="Self.Salesperson" />
+          <AssociationSet Name="FK_Sale_Car" Association="Self.FK_Sale_Car">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Phone_Customer" Association="Self.FK_Customer_Phone_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Customer" Association="Self.FK_Sale_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Phone_Phone" Association="Self.FK_Customer_Phone_Phone">
+            <End Role="Phone" EntitySet="Phones" />
+            <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salesperson_Location" Association="Self.FK_Salesperson_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Salesperson" EntitySet="Salespersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Salesperson" Association="Self.FK_Sale_Salesperson">
+            <End Role="Salesperson" EntitySet="Salespersons" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarSalesDBModelStoreContainer" CdmEntityContainer="CarSalesDBEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="CarColor" ColumnName="CarColor" />
+                <ScalarProperty Name="CarType" ColumnName="CarType" />
+                <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+                <ScalarProperty Name="CarPrice" ColumnName="CarPrice" />
+                <ScalarProperty Name="CarCommission" ColumnName="CarCommission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
+                <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+                <ScalarProperty Name="CustomerPhoneId" ColumnName="CustomerPhoneId" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerDob" ColumnName="CustomerDob" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_Phone">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Customer_Phone">
+              <MappingFragment StoreEntitySet="Customer_Phone">
+                <ScalarProperty Name="CustomerPhoneId" ColumnName="CustomerPhoneId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
+                <ScalarProperty Name="CustomerPhoneType" ColumnName="CustomerPhoneType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="LocationStateProv" ColumnName="LocationStateProv" />
+                <ScalarProperty Name="LocationAddress" ColumnName="LocationAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Phone">
+              <MappingFragment StoreEntitySet="Phone">
+                <ScalarProperty Name="Phoneid" ColumnName="Phoneid" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="SaleId" ColumnName="SaleId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="SalespersonId" ColumnName="SalespersonId" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="SaleTotal" ColumnName="SaleTotal" />
+                <ScalarProperty Name="SaleQuantity" ColumnName="SaleQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salespersons">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Salesperson">
+              <MappingFragment StoreEntitySet="Salesperson">
+                <ScalarProperty Name="SalespersonId" ColumnName="SalespersonId" />
+                <ScalarProperty Name="SalesersonFirstName" ColumnName="SalesersonFirstName" />
+                <ScalarProperty Name="SalesersonLastName" ColumnName="SalesersonLastName" />
+                <ScalarProperty Name="SalespersonAddress" ColumnName="SalespersonAddress" />
+                <ScalarProperty Name="SalespersonPhoneNumber" ColumnName="SalespersonPhoneNumber" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
