@@ -14,43 +14,43 @@ namespace CarSalesApi.Controllers
 
 
         // GET api/<controller>
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllCars()
         {
             var cars = db.GetAllCars();
             return Request.CreateResponse(HttpStatusCode.OK, cars);
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllLocations()
         {
             var locations = db.GetAllLocations();
             return Request.CreateResponse(HttpStatusCode.OK, locations);
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllSalespersons()
         {
             var salepersons = db.GetAllSalespersons();
             return Request.CreateResponse(HttpStatusCode.OK, salespersons);
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllSales()
         {
             var sales = db.GetAllSales();
             return Request.CreateResponse(HttpStatusCode.OK, sales);
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllCustomers()
         {
             var customers = db.GetAllCustomers();
             return Request.CreateResponse(HttpStatusCode.OK, customers);
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllCustomerPhones()
         {
             var customerPhones = db.GetAllCustomerPhones();
             return Request.CreateResponse(HttpStatusCode.OK, customerPhones);
         }
 
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetAllPhones()
         {
             var phones = db.GetAllPhones();
             return Request.CreateResponse(HttpStatusCode.OK, phones);
