@@ -122,6 +122,12 @@
       <DependentUpon>CarModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CarController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerPhonesController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\PhonesController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="Controllers\SalespersonController.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>CarModel.tt</DependentUpon>
     </Compile>

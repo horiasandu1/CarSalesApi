@@ -202,9 +202,5 @@ namespace CarSalesApi.Models
             return response;
         }
 
-
-
-
-
     }
 }
