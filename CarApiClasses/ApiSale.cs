@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CarApiClasses
 {
-    class ApiSale
+    public class ApiSale
     {
         public int SaleId { get; set; }
-        public int CustimerId { get; set; }
+        public int CustomerId { get; set; }
         public int CarId { get; set; }
-        public int SalesPersonId { get; set; }
-        public string SaleDate { get; set; }
+        public int SalespersonId { get; set; }
+        public DateTime SaleDate { get; set; }
         public double SaleTotal { get; set; }
         public int SaleQuantity { get; set; }
 

@@ -13,10 +13,10 @@ namespace CarSalesApi
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CarSalesDBEntities : DbContext
+    public partial class CarSalesDBEntities2 : DbContext
     {
-        public CarSalesDBEntities()
-            : base("name=CarSalesDBEntities")
+        public CarSalesDBEntities2()
+            : base("name=CarSalesDBEntities2")
         {
         }
     

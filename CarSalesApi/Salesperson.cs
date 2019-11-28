@@ -21,8 +21,8 @@ namespace CarSalesApi
         }
     
         public int SalespersonId { get; set; }
-        public string SalesersonFirstName { get; set; }
-        public string SalesersonLastName { get; set; }
+        public string SalespersonFirstName { get; set; }
+        public string SalespersonLastName { get; set; }
         public string SalespersonAddress { get; set; }
         public string SalespersonPhoneNumber { get; set; }
         public int LocationId { get; set; }

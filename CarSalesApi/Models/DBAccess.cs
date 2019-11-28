@@ -6,13 +6,14 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using CarApiClasses;
+using CustomerEntityLibrary;
 
 namespace CarSalesApi.Models
 {
     public class DBAccess 
     {
 
-        private static CarSalesDBEntities db = new CarSalesDBEntities();
+        private static CarSalesDBEntities2 db = new CarSalesDBEntities2();
 
         //Brendan demo
         /*public List<ApiCar> GetCars()
@@ -63,7 +64,7 @@ namespace CarSalesApi.Models
 
         public static List<ApiSalesperson>GetSalespersons()
         {
-            HttpResponseMessage response;
+        
             var salespersons = db.Salespersons.ToList();
             List<ApiSalesperson> salespersonsApi = salespersons.Select(c => new ApiSalesperson()
             {
@@ -76,109 +77,74 @@ namespace CarSalesApi.Models
                 LocationId = c.LocationId,
             }).ToList<ApiSalesperson>();
 
-            return salespersons;
+            return salespersonsApi;
         }
 
-        public HttpResponseMessage GetSales()
+        public static List<ApiSale> GetSales()
         {
-            HttpResponseMessage response;
-            var sales = db.Sale.ToList();
-            List<ApiSale> sales = sales.Select(c => new ApiSale()
+            
+            var sales = db.Sales.ToList();
+            List<ApiSale> salesApi = sales.Select(c => new ApiSale()
             {
-                Id = c.SaleId,
+                SaleId = c.SaleId,
                 CustomerId = c.CustomerId,
                 CarId = c.CarId,
                 SalespersonId = c.SalespersonId,
-                Date = c.SaleDate,
-                Total = c.SaleTotal,
-                Quantity = c.SaleQuantity,
+                SaleDate = (DateTime)c.SaleDate,
+                SaleTotal = (double)c.SaleTotal,
+                SaleQuantity = (int)c.SaleQuantity,
             }).ToList<ApiSale>();
 
-            if (sales.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, sales);
-            }
-
-            return response;
+            return salesApi;
         }
 
 
-        public HttpResponseMessage GetCustomers()
+        public static List<ApiCustomer> GetCustomers()
         {
-            HttpResponseMessage response;
-            var customers = db.Customer.ToList();
-            List<ApiCustomer> customers = customers.Select(c => new ApiCustomer()
+            
+            var customers = db.Customers.ToList();
+            List<ApiCustomer> customersApi = customers.Select(c => new ApiCustomer()
             {
-                Id = c.CustomerId,
-                FirstName = c.CustomerFirstName,
-                LastName = c.CustomerLastName,
-                PhoneId = c.CustomerPhoneId,
-                Address = c.CustomerAddress,
-                Dob = c.CustomerDob
+                CustomerId = c.CustomerId,
+                CustomerFirstName = c.CustomerFirstName,
+                CustomerLastName = c.CustomerLastName,
+                CustomerPhoneId = (int)c.CustomerPhoneId,
+                CustomerAddress = c.CustomerAddress,
+                CustomerDob = (DateTime)c.CustomerDob
             }).ToList<ApiCustomer>();
 
-            if (customers.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, customers);
-            }
-
-            return response;
+            return customersApi;
+           
         }
 
 
-        public HttpResponseMessage GetCustomerPhones()
+        public static List<ApiCustomerPhone> GetCustomerPhones()
         {
-            HttpResponseMessage response;
-            var customerphones = db.CustomerPhone.ToList();
-            List<ApiCustomerPhone> customerphones = customerphones.Select(c => new ApiCustomerPhone()
+            
+            var customerphones = db.Customer_Phone.ToList();
+            List<ApiCustomerPhone> customerphonesApi = customerphones.Select(c => new ApiCustomerPhone()
             {
                 CustomerPhoneId = c.CustomerPhoneId,
                 CustomerId = c.CustomerId,
                 PhoneId = c.PhoneId,
-                Type = c.CustomerPhoneType,
+                CustomerPhoneType = c.CustomerPhoneType,
             }).ToList<ApiCustomerPhone>();
 
-            if (customerphones.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, customerphones);
-            }
-
-            return response;
+            return customerphonesApi;
         }
 
 
-        public HttpResponseMessage GetPhones()
+        public static List<ApiPhone> GetPhones()
         {
-            HttpResponseMessage response;
-            var phones = db.Phone.ToList();
-            List<ApiPhone> phones = phones.Select(c => new ApiPhone()
+            
+            var phones = db.Phones.ToList();
+            List<ApiPhone> phonesApi = phones.Select(c => new ApiPhone()
             {
                 PhoneId = c.PhoneId,
                 PhoneNumber = c.PhoneNumber,
             }).ToList<ApiPhone>();
 
-            if (phones.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, phones);
-            }
-
-            return response;
+            return phonesApi;
         }
 
     }

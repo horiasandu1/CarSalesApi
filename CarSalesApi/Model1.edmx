@@ -46,9 +46,9 @@
         </EntityType>
         <EntityType Name="Phone">
           <Key>
-            <PropertyRef Name="Phoneid" />
+            <PropertyRef Name="PhoneId" />
           </Key>
-          <Property Name="Phoneid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Sale">
@@ -68,8 +68,8 @@
             <PropertyRef Name="SalespersonId" />
           </Key>
           <Property Name="SalespersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SalesersonFirstName" Type="varchar" MaxLength="50" />
-          <Property Name="SalesersonLastName" Type="varchar" MaxLength="50" />
+          <Property Name="SalespersonFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="SalespersonLastName" Type="varchar" MaxLength="50" />
           <Property Name="SalespersonAddress" Type="varchar" MaxLength="50" />
           <Property Name="SalespersonPhoneNumber" Type="varchar" MaxLength="50" />
           <Property Name="LocationId" Type="int" Nullable="false" />
@@ -91,7 +91,7 @@
           <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Phone">
-              <PropertyRef Name="Phoneid" />
+              <PropertyRef Name="PhoneId" />
             </Principal>
             <Dependent Role="Customer_Phone">
               <PropertyRef Name="PhoneId" />
@@ -231,9 +231,9 @@
         </EntityType>
         <EntityType Name="Phone">
           <Key>
-            <PropertyRef Name="Phoneid" />
+            <PropertyRef Name="PhoneId" />
           </Key>
-          <Property Name="Phoneid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer_Phone" Relationship="Self.FK_Customer_Phone_Phone" FromRole="Phone" ToRole="Customer_Phone" />
         </EntityType>
@@ -257,8 +257,8 @@
             <PropertyRef Name="SalespersonId" />
           </Key>
           <Property Name="SalespersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalesersonFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SalesersonLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalespersonFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalespersonLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SalespersonAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SalespersonPhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LocationId" Type="Int32" Nullable="false" />
@@ -306,7 +306,7 @@
           <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Phone">
-              <PropertyRef Name="Phoneid" />
+              <PropertyRef Name="PhoneId" />
             </Principal>
             <Dependent Role="Customer_Phone">
               <PropertyRef Name="PhoneId" />
@@ -337,7 +337,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CarSalesDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarSalesDBEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cars" EntityType="Self.Car" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Customer_Phone" EntityType="Self.Customer_Phone" />
@@ -375,7 +375,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarSalesDBModelStoreContainer" CdmEntityContainer="CarSalesDBEntities">
+        <EntityContainerMapping StorageEntityContainer="CarSalesDBModelStoreContainer" CdmEntityContainer="CarSalesDBEntities2">
           <EntitySetMapping Name="Cars">
             <EntityTypeMapping TypeName="CarSalesDBModel.Car">
               <MappingFragment StoreEntitySet="Car">
@@ -422,7 +422,7 @@
           <EntitySetMapping Name="Phones">
             <EntityTypeMapping TypeName="CarSalesDBModel.Phone">
               <MappingFragment StoreEntitySet="Phone">
-                <ScalarProperty Name="Phoneid" ColumnName="Phoneid" />
+                <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -444,8 +444,8 @@
             <EntityTypeMapping TypeName="CarSalesDBModel.Salesperson">
               <MappingFragment StoreEntitySet="Salesperson">
                 <ScalarProperty Name="SalespersonId" ColumnName="SalespersonId" />
-                <ScalarProperty Name="SalesersonFirstName" ColumnName="SalesersonFirstName" />
-                <ScalarProperty Name="SalesersonLastName" ColumnName="SalesersonLastName" />
+                <ScalarProperty Name="SalespersonFirstName" ColumnName="SalespersonFirstName" />
+                <ScalarProperty Name="SalespersonLastName" ColumnName="SalespersonLastName" />
                 <ScalarProperty Name="SalespersonAddress" ColumnName="SalespersonAddress" />
                 <ScalarProperty Name="SalespersonPhoneNumber" ColumnName="SalespersonPhoneNumber" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />

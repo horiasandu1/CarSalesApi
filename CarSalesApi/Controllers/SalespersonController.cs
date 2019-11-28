@@ -17,8 +17,9 @@ namespace CarSalesApi.Controllers
         //GET ALL THE SALESPERSON - Ariane
         public HttpResponseMessage GetSalespersons()
         {
-            var salespersons = DBAccess.GetSalespersons();
-            if (salepersons.Count == 0)
+            HttpResponseMessage response;
+            var salespersonsApi = DBAccess.GetSalespersons();
+            if (salespersonsApi.Count == 0)
             {
                 response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
             }

@@ -20,7 +20,7 @@ namespace CarSalesApi
             this.Customer_Phone = new HashSet<Customer_Phone>();
         }
     
-        public int Phoneid { get; set; }
+        public int PhoneId { get; set; }
         public string PhoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

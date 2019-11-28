@@ -10,15 +10,25 @@ namespace CarSalesApi.Controllers
 {
     public class SaleController : ApiController
     {
-        DBAccess db = new DBAccess();
+        
 
         [HttpGet]
         [Route("SaleController/Sale")]
         //GET ALL THE SALES - Ariane
         public HttpResponseMessage GetSales()
         {
-            var sales = db.GetSales();
-            return Request.CreateResponse(HttpStatusCode.OK, sales);
+            HttpResponseMessage response;
+            var sales = DBAccess.GetSales();
+            if (sales.Count == 0)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, sales);
+            }
+
+            return response;
         }
 
         [HttpGet]

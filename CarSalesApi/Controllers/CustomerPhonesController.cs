@@ -9,15 +9,25 @@ namespace CarSalesApi.Controllers
 {
     public class CustomerPhonesController : ApiController
     {
-        DBAccess db = new DBAccess();
+        
 
         [HttpGet]
         [Route("CustomerPhoneController/CustomerPhone")]
         // GET ALL THE CUSTOMERPHONES - Ariane
         public HttpResponseMessage GetCustomerPhones()
         {
-            var customerPhones = db.GetCustomerPhones();
-            return Request.CreateResponse(HttpStatusCode.OK, customerPhones);
+            HttpResponseMessage response;
+            var customerPhonesApi = DBAccess.GetCustomerPhones();
+            if (customerPhonesApi.Count == 0)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, customerPhonesApi);
+            }
+
+            return response;
         }
 
         [HttpGet]
