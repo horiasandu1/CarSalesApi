@@ -4,11 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Http;
 using CarApiClasses;
 
 namespace CarSalesApi.Models
 {
-    public class DBAccess
+    public class DBAccess : ApiController
     {
 
         private CarSalesDBEntities db = new CarSalesDBEntities();
