@@ -10,15 +10,27 @@ namespace CarSalesApi.Controllers
 {
     public class LocationController : ApiController
     {
-        DBAccess db = new DBAccess();
+   
 
         [HttpGet]
         [Route("LocationController/Location")]
         // GET ALL THE LOCATIONS - Ariane
         public HttpResponseMessage GetLocations()
         {
-            var locations = db.GetLocations();
-            return Request.CreateResponse(HttpStatusCode.OK, locations);
+            HttpResponseMessage response;
+
+            var locations = DBAccess.GetLocations();
+            if (locations.Count == 0)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, locations);
+            }
+
+            return response;
+            
         }
 
         [HttpGet]

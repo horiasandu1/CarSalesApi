@@ -9,10 +9,10 @@ using CarApiClasses;
 
 namespace CarSalesApi.Models
 {
-    public class DBAccess : ApiController
+    public class DBAccess 
     {
 
-        private CarSalesDBEntities db = new CarSalesDBEntities();
+        private static CarSalesDBEntities db = new CarSalesDBEntities();
 
         //Brendan demo
         /*public List<ApiCar> GetCars()
@@ -26,10 +26,11 @@ namespace CarSalesApi.Models
         }*/
 
     //Get all
-        public HttpResponseMessage GetCars()
+        public static List<ApiCar> GetCars()
         {
-            HttpResponseMessage response;
+            
             var cars = db.Cars.ToList();
+
             List<ApiCar> carsApi = cars.Select(c => new ApiCar()
             {
                 CarId = c.CarId,
@@ -39,68 +40,43 @@ namespace CarSalesApi.Models
                 CarPrice = (double)c.CarPrice,
                 CarCommission = (double)c.CarCommission
             }).ToList<ApiCar>();
+            return carsApi;
 
-            if (cars.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, cars);
-            }
-
-            return response;
         }
 
 
-        public HttpResponseMessage GetLocations()
+        public static List<ApiLocation> GetLocations()
         {
-            HttpResponseMessage response;
+            
             var locations = db.Locations.ToList();
             List<ApiLocation> locationsApi = locations.Select(c => new ApiLocation()
             {
                 LocationId = c.LocationId,
-                LocStateProv = c.LocationStateProv,
-                LocAddress = c.LocationAddress
+                LocationStateProv = c.LocationStateProv,
+                LocationAddress = c.LocationAddress
             }).ToList<ApiLocation>();
 
-            if (locations.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, locations);
-            }
-
-            return response;
+            return locationsApi;
+           
         }
 
 
-        public HttpResponseMessage GetSalespersons()
+        public static List<ApiSalesperson>GetSalespersons()
         {
             HttpResponseMessage response;
-            var salespersons = db.Salesperson.ToList();
-            List<ApiSalesperson> salespersons = salespersons.Select(c => new ApiSalesperson()
+            var salespersons = db.Salespersons.ToList();
+            List<ApiSalesperson> salespersonsApi = salespersons.Select(c => new ApiSalesperson()
             {
-                Id = c.SalespersonId,
-                FirstName = c.SalespersonFirstName,
-                LastName = c.SalespersonLastName,
-                Address = c.SalespersonAddress,
-                PhoneNumber = c.SalespersonPhoneNumber,
+                SalespersonId = c.SalespersonId,
+                //DANGER DANGER, ITS SHITTY BUT IT WORKS, FIRST AND LAST NAME AND SA
+                SalespersonFirstName = c.SalespersonFirstName,
+                SalespersonLastName = c.SalespersonLastName,
+                SalespersonAddress = c.SalespersonAddress,
+                SalespersonPhoneNumber = c.SalespersonPhoneNumber,
                 LocationId = c.LocationId,
             }).ToList<ApiSalesperson>();
 
-            if (salepersons.Count == 0)
-            {
-                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, salespersons);
-            }
-
-            return response;
+            return salespersons;
         }
 
         public HttpResponseMessage GetSales()
