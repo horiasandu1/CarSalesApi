@@ -15,18 +15,18 @@ namespace CarSalesApi.Controllers
         [HttpGet]
         [Route("LocationController/Location")]
         // GET ALL THE LOCATIONS - Ariane
-        public HttpResponseMessage GetAllLocation()
+        public HttpResponseMessage GetLocations()
         {
-            var locations = db.GetAllLocation();
+            var locations = db.GetLocations();
             return Request.CreateResponse(HttpStatusCode.OK, locations);
         }
 
         [HttpGet]
         [Route("LocationController/Location/id")]
         // GET SPECIFIC LOCATION WITH ID - Hicham
-        public HttpResponseMessage GetLocationId(int id)
+        public HttpResponseMessage GetLocation(int id)
         {
-            var location = db.GetLocationId(id);
+            var location = db.GetLocation(id);
 
             return Request.CreateResponse(HttpStatusCode.OK, location);
         }

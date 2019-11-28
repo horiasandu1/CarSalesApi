@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace CarSalesApi.Controllers
 {
-    public class PhonesController
+    public class PhoneController : ApiController
     {
 
         DBAccess db = new DBAccess();
@@ -16,18 +16,18 @@ namespace CarSalesApi.Controllers
         [HttpGet]
         [Route("PhoneController/Phone")]
         //GET ALL THE PHONES - Ariane
-        public HttpResponseMessage GetAllPhone()
+        public HttpResponseMessage GetPhones()
         {
-            var phones = db.GetAllPhone();
+            var phones = db.GetPhones();
             return Request.CreateResponse(HttpStatusCode.OK, phones);
         }
 
         [HttpGet]
         [Route("PhoneController/Phone/id")]
         // GET SPECIFIC PHONE WITH ID - Hicham
-        public HttpResponseMessage GetPhoneId(int id)
+        public HttpResponseMessage GetPhone(int id)
         {
-            var phone = db.GetPhoneId(id);
+            var phone = db.GetPhone(id);
 
             return Request.CreateResponse(HttpStatusCode.OK, phone);
         }

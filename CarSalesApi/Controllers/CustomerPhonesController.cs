@@ -7,23 +7,23 @@ using System.Net.Http;
 using System.Web.Http;
 namespace CarSalesApi.Controllers
 {
-    public class CustomerPhonesController
+    public class CustomerPhonesController : ApiController
     {
         DBAccess db = new DBAccess();
 
         [HttpGet]
         [Route("CustomerPhoneController/CustomerPhone")]
         // GET ALL THE CUSTOMERPHONES - Ariane
-        public HttpResponseMessage GetAllCustomerPhone()
+        public HttpResponseMessage GetCustomerPhones()
         {
-            var customerPhones = db.GetAllCustomerPhone();
+            var customerPhones = db.GetCustomerPhones();
             return Request.CreateResponse(HttpStatusCode.OK, customerPhones);
         }
 
         [HttpGet]
         [Route("CustomerPhoneController/CustomerPhone/id")]
         // GET SPECIFIC CUSTOMERPHONES WITH ID - Hicham
-        public HttpResponseMessage GetCustomerPhoneId(int id)
+        public HttpResponseMessage GetCustomerPhone(int id)
         {
             var customerPhone = db.GetCustomerPhone(id);
 

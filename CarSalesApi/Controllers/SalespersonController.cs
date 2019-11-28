@@ -15,18 +15,18 @@ namespace CarSalesApi.Controllers
         [HttpGet]
         [Route("SalespersonController/Salesperson")]
         //GET ALL THE SALESPERSON - Ariane
-        public HttpResponseMessage GetAllSalesperson()
+        public HttpResponseMessage GetSalespersons()
         {
-            var salepersons = db.GetAllSalesperson();
+            var salespersons = db.GetSalespersons();
             return Request.CreateResponse(HttpStatusCode.OK, salespersons);
         }
 
         [HttpGet]
         [Route("SalespersonController/Saleperson")]
         // GET SPECIFIC SALESPERSON WITH ID - Hicham
-        public HttpResponseMessage GetSalespersonId(int id)
+        public HttpResponseMessage GetSalesperson(int id)
         {
-            var salesperson = db.GetSalespersonId(id);
+            var salesperson = db.GetSalesperson(id);
 
             return Request.CreateResponse(HttpStatusCode.OK, salesperson);
         }

@@ -25,7 +25,7 @@ namespace CarSalesApi.Models
         }*/
 
     //Get all
-        public HttpResponseMessage GetAllCar()
+        public HttpResponseMessage GetCars()
         {
             HttpResponseMessage response;
             var cars = db.Cars.ToList();
@@ -52,7 +52,7 @@ namespace CarSalesApi.Models
         }
 
 
-        public HttpResponseMessage GetAllLocation()
+        public HttpResponseMessage GetLocations()
         {
             HttpResponseMessage response;
             var locations = db.Locations.ToList();
@@ -76,7 +76,7 @@ namespace CarSalesApi.Models
         }
 
 
-        public HttpResponseMessage GetAllSalesperson()
+        public HttpResponseMessage GetSalespersons()
         {
             HttpResponseMessage response;
             var salespersons = db.Salesperson.ToList();
@@ -102,7 +102,7 @@ namespace CarSalesApi.Models
             return response;
         }
 
-        public HttpResponseMessage GetAllSale()
+        public HttpResponseMessage GetSales()
         {
             HttpResponseMessage response;
             var sales = db.Sale.ToList();
@@ -130,7 +130,7 @@ namespace CarSalesApi.Models
         }
 
 
-        public HttpResponseMessage GetAllCustomer()
+        public HttpResponseMessage GetCustomers()
         {
             HttpResponseMessage response;
             var customers = db.Customer.ToList();
@@ -157,7 +157,7 @@ namespace CarSalesApi.Models
         }
 
 
-        public HttpResponseMessage GetAllCustomerPhone()
+        public HttpResponseMessage GetCustomerPhones()
         {
             HttpResponseMessage response;
             var customerphones = db.CustomerPhone.ToList();
@@ -182,7 +182,7 @@ namespace CarSalesApi.Models
         }
 
 
-        public HttpResponseMessage GetAllPhone()
+        public HttpResponseMessage GetPhones()
         {
             HttpResponseMessage response;
             var phones = db.Phone.ToList();
