@@ -12,13 +12,17 @@ namespace CarSalesApi.Controllers
     {
         DBAccess db = new DBAccess();
 
+        [HttpGet]
+        [Route("SaleController/Sale")]
         //GET ALL THE SALES - Ariane
-        public HttpResponseMessage GetAllSales()
+        public HttpResponseMessage GetAllSale()
         {
-            var sales = db.GetAllSales();
+            var sales = db.GetAllSale();
             return Request.CreateResponse(HttpStatusCode.OK, sales);
         }
 
+        [HttpGet]
+        [Route("SaleController/Sale/id")]
         // GET SPECIFIC SALE WITH ID - Hicham
         public HttpResponseMessage GetSaleId(int id)
         {

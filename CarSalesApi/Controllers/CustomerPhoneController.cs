@@ -11,15 +11,19 @@ namespace CarSalesApi.Controllers
     {
         DBAccess db = new DBAccess();
 
+        [HttpGet]
+        [Route("CustomerPhoneController/CustomerPhone")]
         // GET ALL THE CUSTOMERPHONES - Ariane
-        public HttpResponseMessage GetAllCustomerPhones()
+        public HttpResponseMessage GetAllCustomerPhone()
         {
-            var customerPhones = db.GetAllCustomerPhones();
+            var customerPhones = db.GetAllCustomerPhone();
             return Request.CreateResponse(HttpStatusCode.OK, customerPhones);
         }
 
+        [HttpGet]
+        [Route("CustomerPhoneController/CustomerPhone/id")]
         // GET SPECIFIC CUSTOMERPHONES WITH ID - Hicham
-        public HttpResponseMessage GetCustomerPhonesId(int id)
+        public HttpResponseMessage GetCustomerPhoneId(int id)
         {
             var customerPhone = db.GetCustomerPhone(id);
 

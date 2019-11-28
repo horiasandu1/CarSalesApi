@@ -13,13 +13,17 @@ namespace CarSalesApi.Controllers
 
         DBAccess db = new DBAccess();
 
+        [HttpGet]
+        [Route("PhoneController/Phone")]
         //GET ALL THE PHONES - Ariane
-        public HttpResponseMessage GetAllPhones()
+        public HttpResponseMessage GetAllPhone()
         {
-            var phones = db.GetAllPhones();
+            var phones = db.GetAllPhone();
             return Request.CreateResponse(HttpStatusCode.OK, phones);
         }
 
+        [HttpGet]
+        [Route("PhoneController/Phone/id")]
         // GET SPECIFIC PHONE WITH ID - Hicham
         public HttpResponseMessage GetPhoneId(int id)
         {

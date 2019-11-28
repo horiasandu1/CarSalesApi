@@ -11,13 +11,17 @@ namespace CarSalesApi.Controllers
     {
         DBAccess db = new DBAccess();
 
+        [HttpGet]
+        [Route("LocationController/Location")]
         // GET ALL THE LOCATIONS - Ariane
-        public HttpResponseMessage GetAllLocations()
+        public HttpResponseMessage GetAllLocation()
         {
-            var locations = db.GetAllLocations();
+            var locations = db.GetAllLocation();
             return Request.CreateResponse(HttpStatusCode.OK, locations);
         }
 
+        [HttpGet]
+        [Route("LocationController/Location/id")]
         // GET SPECIFIC LOCATION WITH ID - Hicham
         public HttpResponseMessage GetLocationId(int id)
         {
