@@ -42,6 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiCar.cs" />
+    <Compile Include="ApiCustomer.cs" />
+    <Compile Include="ApiCustomerPhone.cs" />
+    <Compile Include="ApiLocation.cs" />
+    <Compile Include="ApiPhone.cs" />
+    <Compile Include="ApiSale.cs" />
+    <Compile Include="ApiSalesperson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
