@@ -10,7 +10,8 @@ namespace CarSalesApi.Controllers
 {
     public class SaleController : ApiController
     {
-        
+
+        CarSalesDBEntities2 db = new CarSalesDBEntities2();
 
         [HttpGet]
         [Route("SaleController/Sale")]
@@ -39,6 +40,31 @@ namespace CarSalesApi.Controllers
             var sale = db.GetSale(id);
 
             return Request.CreateResponse(HttpStatusCode.OK, sale);
+        }
+        public HttpResponseMessage Delete(int id)
+        {
+            Sale c = db.Sales.Find(id);
+
+            if (c == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
+            }
+
+            db.Sales.Remove(c);
+
+            try
+            {
+                // Persist our change.
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "An error occured, Cannot delete current record !");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

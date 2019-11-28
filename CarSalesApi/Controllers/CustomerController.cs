@@ -10,7 +10,8 @@ namespace CarSalesApi.Controllers
 {
     public class CustomerController : ApiController
     {
-     
+
+        CarSalesDBEntities2 db = new CarSalesDBEntities2();
 
         [HttpGet]
         [Route("CustomerController/Customer")]
@@ -36,9 +37,35 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC CUSTOMER WITH ID - Hicham
         public HttpResponseMessage GetCustomer(int id)
         {
-            var customer = db.GetCustomer(id);
+            var customer = db.Customers.Find(id);
 
             return Request.CreateResponse(HttpStatusCode.OK, customer);
+        }
+
+        public HttpResponseMessage Delete(int id)
+        {
+            Customer c = db.Customers.Find(id);
+
+            if (c == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
+            }
+
+            db.Customers.Remove(c);
+
+            try
+            {
+                // Persist our change.
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "An error occured, Cannot delete current record !");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
     }

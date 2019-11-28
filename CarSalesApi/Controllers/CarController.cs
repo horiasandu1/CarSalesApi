@@ -1,6 +1,7 @@
 ﻿using CarSalesApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -10,7 +11,8 @@ namespace CarSalesApi.Controllers
 {
     public class CarController : ApiController
     {
-       
+
+        CarSalesDBEntities2 db = new CarSalesDBEntities2();
 
         [HttpGet]
         [Route("CarController/Car")]
@@ -37,10 +39,35 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC CAR WITH ID - Hicham
         public HttpResponseMessage GetCar(int id)
         {
-            var car = db.GetCar(id);
+            var car = db.Cars.Find(id);
 
             return Request.CreateResponse(HttpStatusCode.OK, car);
         }
 
+        public HttpResponseMessage Delete(int id)
+        {
+            Car c = db.Cars.Find(id);
+
+            if (c == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
+            }
+
+            db.Cars.Remove(c);
+            
+            try
+            {
+                // Persist our change.
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "An error occured, Cannot delete current record !");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }
