@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using CarApiClasses;
 
@@ -27,14 +29,14 @@ namespace CarSalesApi.Models
         {
             HttpResponseMessage response;
             var cars = db.Cars.ToList();
-            List<ApiCar> cars = cars.Select(c => new ApiCar()
+            List<ApiCar> carsApi = cars.Select(c => new ApiCar()
             {
-                Id = c.CarId,
-                Color = c.CarColor,
-                Type = c.CarType,
-                Model = c.CarModel,
-                Price = c.CarPrice,
-                Commission = c.CarCommission
+                CarId = c.CarId,
+                CarColor = c.CarColor,
+                CarType = c.CarType,
+                CarModel = c.CarModel,
+                CarPrice = (double)c.CarPrice,
+                CarCommission = (double)c.CarCommission
             }).ToList<ApiCar>();
 
             if (cars.Count == 0)
@@ -53,10 +55,10 @@ namespace CarSalesApi.Models
         public HttpResponseMessage GetAllLocation()
         {
             HttpResponseMessage response;
-            var locations = db.Location.ToList();
-            List<ApiLocation> locations = locations.Select(c => new ApiLocation()
+            var locations = db.Locations.ToList();
+            List<ApiLocation> locationsApi = locations.Select(c => new ApiLocation()
             {
-                LocId = c.LocationId,
+                LocationId = c.LocationId,
                 LocStateProv = c.LocationStateProv,
                 LocAddress = c.LocationAddress
             }).ToList<ApiLocation>();

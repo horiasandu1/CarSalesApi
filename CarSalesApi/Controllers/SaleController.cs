@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace CarSalesApi.Controllers
 {
-    public class SaleController
+    public class SaleController : ApiController
     {
         DBAccess db = new DBAccess();
 
