@@ -39,9 +39,19 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC LOCATION WITH ID - Hicham
         public HttpResponseMessage GetLocation(int id)
         {
-            var location = db.GetLocation(id);
+            HttpResponseMessage response;
+            var location = DBAccess.GetLocation(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK, location);
+            if (location == null)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No locations were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, location);
+            }
+
+            return response;
         }
 
         public HttpResponseMessage Delete(int id)

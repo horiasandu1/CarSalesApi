@@ -26,7 +26,7 @@ namespace CarSalesApi.Controllers
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.OK, salespersons);
+                response = Request.CreateResponse(HttpStatusCode.OK, salespersonsApi);
             }
 
             return response;
@@ -37,9 +37,19 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC SALESPERSON WITH ID - Hicham
         public HttpResponseMessage GetSalesperson(int id)
         {
-            var salesperson = db.GetSalesperson(id);
+            HttpResponseMessage response;
+            var salesperson = DBAccess.GetSalesperson(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK, salesperson);
+            if (salesperson == null)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No salesperson were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, salesperson);
+            }
+
+            return response;
         }
         public HttpResponseMessage Delete(int id)
         {

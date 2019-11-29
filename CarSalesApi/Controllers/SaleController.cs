@@ -37,9 +37,19 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC SALE WITH ID - Hicham
         public HttpResponseMessage GetSale(int id)
         {
-            var sale = db.GetSale(id);
+            HttpResponseMessage response;
+            var sale = DBAccess.GetSale(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK, sale);
+            if (sale == null)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No sales were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, sale);
+            }
+
+            return response;
         }
         public HttpResponseMessage Delete(int id)
         {

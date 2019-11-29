@@ -37,9 +37,19 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC PHONE WITH ID - Hicham
         public HttpResponseMessage GetPhone(int id)
         {
-            var phone = db.GetPhone(id);
+            HttpResponseMessage response;
+            var phone = DBAccess.GetPhone(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK, phone);
+            if (phone == null)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No phones were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, phone);
+            }
+
+            return response;
         }
         public HttpResponseMessage Delete(int id)
         {

@@ -37,9 +37,19 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC CUSTOMER WITH ID - Hicham
         public HttpResponseMessage GetCustomer(int id)
         {
-            var customer = db.Customers.Find(id);
+            HttpResponseMessage response;
+            var customer = DBAccess.GetCustomer(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK, customer);
+            if (customer == null)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No customers were found");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, customer);
+            }
+
+            return response;
         }
 
         public HttpResponseMessage Delete(int id)

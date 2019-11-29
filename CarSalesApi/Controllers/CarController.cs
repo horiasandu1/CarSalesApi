@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+
 namespace CarSalesApi.Controllers
 {
     public class CarController : ApiController
@@ -39,9 +40,16 @@ namespace CarSalesApi.Controllers
         // GET SPECIFIC CAR WITH ID - Hicham
         public HttpResponseMessage GetCar(int id)
         {
-            var car = db.Cars.Find(id);
+            HttpResponseMessage response;
+            var car = DBAccess.GetCar(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK, car);
+            if (car == null){
+                response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "No cars were found");
+            }else{
+                response = Request.CreateResponse(HttpStatusCode.OK, car);
+            }
+
+            return response;
         }
 
         public HttpResponseMessage Delete(int id)

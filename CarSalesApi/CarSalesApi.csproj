@@ -230,6 +230,10 @@
       <Project>{cdd34584-4871-414b-80dc-20ef808a358f}</Project>
       <Name>CarApiClasses</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{d19c2e35-1d19-4b54-81cd-150c40425618}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

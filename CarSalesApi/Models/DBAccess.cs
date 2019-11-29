@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using CarApiClasses;
 using CustomerEntityLibrary;
+using Utils;
 
 namespace CarSalesApi.Models
 {
@@ -147,5 +148,81 @@ namespace CarSalesApi.Models
             return phonesApi;
         }
 
+        public static ApiCar GetCar(int id)
+        {
+            var car = db.Cars.Find(id);
+
+            var carApi = new ApiCar();
+
+            PropertyCopier<Car, ApiCar>.Copy(car, carApi);
+
+            return carApi;
+        }
+
+        public static ApiCustomer GetCustomer(int id)
+        {
+            var customer = db.Customers.Find(id);
+
+            var customerApi = new ApiCustomer();
+
+            PropertyCopier<Customer, ApiCustomer>.Copy(customer, customerApi);
+
+            return customerApi;
+        }
+
+        public static ApiCustomerPhone GetCustomerPhone(int id)
+        {
+            var customerPhone = db.Customer_Phone.Find(id);
+
+            var customerPhoneApi = new ApiCustomerPhone();
+
+            PropertyCopier<Customer_Phone, ApiCustomerPhone>.Copy(customerPhone, customerPhoneApi);
+
+            return customerPhoneApi;
+        }
+
+        public static ApiLocation GetLocation(int id)
+        {
+            var location = db.Locations.Find(id);
+
+            var locationApi = new ApiLocation();
+
+            PropertyCopier<Location, ApiLocation>.Copy(location, locationApi);
+
+            return locationApi;
+        }
+
+        public static ApiPhone GetPhone(int id)
+        {
+            var phone = db.Phones.Find(id);
+
+            var phoneApi = new ApiPhone();
+
+            PropertyCopier<Phone, ApiPhone>.Copy(phone, phoneApi);
+
+            return phoneApi;
+        }
+
+        public static ApiSale GetSale(int id)
+        {
+            var sale = db.Sales.Find(id);
+
+            var saleApi = new ApiSale();
+
+            PropertyCopier<Sale, ApiSale>.Copy(sale, saleApi);
+
+            return saleApi;
+        }
+
+        public static ApiSalesperson GetSalesperson(int id)
+        {
+            var salesperson = db.Salespersons.Find(id);
+
+            var salespersonApi = new ApiSalesperson();
+
+            PropertyCopier<Salesperson, ApiSalesperson>.Copy(salesperson, salespersonApi);
+
+            return salespersonApi;
+        }
     }
 }
