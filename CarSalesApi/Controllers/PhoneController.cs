@@ -1,4 +1,5 @@
-﻿using CarSalesApi.Models;
+﻿using CarApiClasses;
+using CarSalesApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,5 +77,25 @@ namespace CarSalesApi.Controllers
             // All OK
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+
+        [HttpPost]
+        [Route("api/Phone")]
+        public HttpResponseMessage PostPhone([FromBody]ApiPhone ph)
+        {
+            try
+            {
+                DBAccess.PostPhone(ph);
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record.");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
     }
 }

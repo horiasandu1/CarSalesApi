@@ -224,5 +224,118 @@ namespace CarSalesApi.Models
 
             return salespersonApi;
         }
+
+        public static void PostCar(ApiCar ac)
+        {
+
+            // Create a new EF Customer.
+            Car c = new Car();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiCar, Car>.Copy(ac, c);
+
+            // Tell EF we want to add the customer.
+            db.Cars.Add(c);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
+        public static void PostCustomer(ApiCustomer ac)
+        {
+
+            // Create a new EF Customer.
+            Customer c = new Customer();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c);
+
+            // Tell EF we want to add the customer.
+            db.Customers.Add(c);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
+        public static void PostSale(ApiSale sa)
+        {
+
+            // Create a new EF Customer.
+            Sale s = new Sale();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiSale, Sale>.Copy(sa, s);
+
+            // Tell EF we want to add the customer.
+            db.Sales.Add(s);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
+        public static void PostSalesPerson(ApiSalesperson sp)
+        {
+
+            // Create a new EF Customer.
+            Salesperson s = new Salesperson();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiSalesperson, Salesperson>.Copy(sp, s);
+
+            // Tell EF we want to add the customer.
+            db.Salespersons.Add(s);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
+        public static void PostPhone(ApiPhone ph)
+        {
+
+            // Create a new EF Customer.
+            Phone p = new Phone();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiPhone, Phone>.Copy(ph, p);
+
+            // Tell EF we want to add the customer.
+            db.Phones.Add(p);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
+        public static void PostCustomerPhone(ApiCustomerPhone pc)
+        {
+
+            // Create a new EF Customer.
+            Customer_Phone p = new Customer_Phone();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(pc, p);
+
+            // Tell EF we want to add the customer.
+            db.Customer_Phone.Add(p);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
+        public static void PostLocation(ApiLocation lo)
+        {
+
+            // Create a new EF Customer.
+            Location l = new Location();
+
+            // Copy the Simplified customer to the EF customer using the tool I provided.
+            PropertyCopier<ApiLocation, Location>.Copy(lo, l);
+
+            // Tell EF we want to add the customer.
+            db.Locations.Add(l);
+
+            //Save changes
+            db.SaveChanges();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using CarSalesApi.Models;
+﻿using CarApiClasses;
+using CarSalesApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -72,6 +73,24 @@ namespace CarSalesApi.Controllers
             {
                 // ERROR
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "An error occured, Cannot delete current record !");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        [Route("api/Car")]
+        public HttpResponseMessage PostCar([FromBody]ApiCar ac)
+        {
+            try
+            {
+                DBAccess.PostCar(ac);
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record.");
             }
 
             // All OK

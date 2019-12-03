@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CarApiClasses;
+
 namespace CarSalesApi.Controllers
 {
     public class CustomerPhonesController : ApiController
@@ -75,6 +77,25 @@ namespace CarSalesApi.Controllers
             // All OK
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        [HttpPost]
+        [Route("api/CustomerPhones")]
+        public HttpResponseMessage PostCustomerPhones([FromBody]ApiCustomerPhone cp)
+        {
+            try
+            {
+                DBAccess.PostCustomerPhone(cp);
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record.");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
 
     }
 }

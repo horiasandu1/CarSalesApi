@@ -1,4 +1,5 @@
-﻿using CarSalesApi.Models;
+﻿using CarApiClasses;
+using CarSalesApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,5 +77,24 @@ namespace CarSalesApi.Controllers
             // All OK
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        [HttpPost]
+        [Route("api/Sale")]
+        public HttpResponseMessage PostLocation([FromBody]ApiSale sa)
+        {
+            try
+            {
+                DBAccess.PostSale(sa);
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record.");
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
     }
 }
