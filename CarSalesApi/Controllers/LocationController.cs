@@ -14,7 +14,7 @@ namespace CarSalesApi.Controllers
         CarSalesDBEntities2 db = new CarSalesDBEntities2();
 
         [HttpGet]
-        [Route("LocationController/Location")]
+        [Route("api/Location")]
         // GET ALL THE LOCATIONS - Ariane
         public HttpResponseMessage GetLocations()
         {
@@ -35,7 +35,7 @@ namespace CarSalesApi.Controllers
         }
 
         [HttpGet]
-        [Route("LocationController/Location/id")]
+        [Route("api/Location/{id}")]
         // GET SPECIFIC LOCATION WITH ID - Hicham
         public HttpResponseMessage GetLocation(int id)
         {
@@ -54,21 +54,17 @@ namespace CarSalesApi.Controllers
             return response;
         }
 
+
+        [HttpDelete]
+        [Route("api/Location/{id}")]
         public HttpResponseMessage Delete(int id)
         {
-            Location c = db.Locations.Find(id);
-
-            if (c == null)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
-            }
-
-            db.Locations.Remove(c);
 
             try
             {
                 // Persist our change.
-                db.SaveChanges();
+                DBAccess.DeleteLocation(id);
+
             }
             catch (Exception e)
             {

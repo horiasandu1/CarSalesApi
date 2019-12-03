@@ -224,5 +224,106 @@ namespace CarSalesApi.Models
 
             return salespersonApi;
         }
+
+        public static void DeleteCar(int id) {
+            Car c = db.Cars.Find(id);
+
+            if (c == null)
+            {
+                throw new Exception("Sale Not found");
+            }
+
+            db.Cars.Remove(c);
+
+            db.SaveChanges();
+        }
+
+        public static void DeleteCustomer(int id)
+        {
+
+            Customer c = db.Customers.Find(id);
+
+            if (c == null)
+            {
+                throw new Exception("Sale Not found");
+            }
+
+            db.Customers.Remove(c);
+
+            db.SaveChanges();
+        }
+
+        public static void DeleteCustomerPhone(int id)
+        {
+            Customer_Phone c = db.Customer_Phone.Find(id);
+
+            if (c == null)
+            {
+                throw new Exception("Sale Not found");
+            }
+
+            db.Customer_Phone.Remove(c);
+
+            db.SaveChanges();
+        }
+
+        public static void DeleteLocation(int id)
+        {
+
+            Location c = db.Locations.Find(id);
+
+            if (c == null)
+            {
+                throw new Exception("Location Not found");
+            }
+
+            db.Locations.Remove(c);
+
+            db.SaveChanges();
+        }
+
+        public static void DeletePhone(int id)
+        {
+            Phone c = db.Phones.Find(id);
+
+            if (c == null)
+            {
+                throw new Exception("Phone Not found");
+            }
+
+            db.Phones.Remove(c);
+
+            db.SaveChanges();
+        }
+
+        public static void DeleteSale(int id)
+        {
+
+            Sale c = db.Sales.Find(id);
+
+            if (c == null)
+            {
+                throw new Exception("Sale Not found");
+            }
+
+            db.Sales.Remove(c);
+
+            db.SaveChanges();
+        }
+
+        public static void DeleteSalesperson(int id)
+        {
+
+            Salesperson c = db.Salespersons.Find(id);
+
+            if (c == null) {
+                throw new Exception("Sales person Not found");
+            }
+
+            db.Salespersons.Remove(c);
+
+            db.SaveChanges();
+        }
+
     }
 }
