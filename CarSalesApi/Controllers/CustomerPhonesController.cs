@@ -91,7 +91,5 @@ namespace CarSalesApi.Controllers
             // All OK
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
-
     }
 }
