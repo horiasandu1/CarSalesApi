@@ -15,7 +15,7 @@ namespace CarSalesApi.Controllers
         CarSalesDBEntities2 db = new CarSalesDBEntities2();
 
         [HttpGet]
-        [Route("CustomerController/Customer")]
+        [Route("api/Customer")]
         //GET ALL THE CUSTOMER - Ariane
         public HttpResponseMessage GetCustomers()
         {
@@ -34,8 +34,7 @@ namespace CarSalesApi.Controllers
         }
 
         [HttpGet]
-        [Route("CustomerController/Customer/id")]
-        // GET SPECIFIC CUSTOMER WITH ID - Hicham
+        [Route("api/Customer/{id}")]
         public HttpResponseMessage GetCustomer(int id)
         {
             HttpResponseMessage response;
@@ -53,21 +52,16 @@ namespace CarSalesApi.Controllers
             return response;
         }
 
+        [HttpDelete]
+        [Route("api/Customer/{id}")]
         public HttpResponseMessage Delete(int id)
         {
-            Customer c = db.Customers.Find(id);
-
-            if (c == null)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
-            }
-
-            db.Customers.Remove(c);
 
             try
             {
                 // Persist our change.
-                db.SaveChanges();
+                DBAccess.DeleteCustomer(id);
+
             }
             catch (Exception e)
             {
