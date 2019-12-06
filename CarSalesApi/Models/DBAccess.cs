@@ -438,5 +438,111 @@ namespace CarSalesApi.Models
             db.SaveChanges();
         }
 
+
+        public static void PutCar(int id, ApiCar ac)
+        {
+            // Create a new car
+            Car c = new Car();
+
+            // Copy car
+            PropertyCopier<ApiCar, Car>.Copy(ac, c);
+
+            c.CarId = id;
+
+            db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public static void PutCustomer(int id, ApiCustomer ac)
+        {
+            // Create a new car
+            Customer c = new Customer();
+
+            // Copy car
+            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c);
+
+            c.CustomerId = id;
+
+            db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public static void PutCustomerPhone(int id, ApiCustomerPhone acp)
+        {
+            // Create a new car
+            Customer_Phone cp = new Customer_Phone();
+
+            // Copy car
+            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(acp, cp);
+
+            cp.CustomerPhoneId = id;
+
+            db.Entry(cp).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public static void PutPhone(int id, ApiPhone ap)
+        {
+            // Create a new car
+            Phone p = new Phone();
+
+            // Copy car
+            PropertyCopier<ApiPhone, Phone>.Copy(ap, p);
+
+            p.PhoneId = id;
+
+            db.Entry(p).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public static void PutLocation(int id, ApiLocation al)
+        {
+            // Create a new car
+            Location l = new Location();
+
+            // Copy car
+            PropertyCopier<ApiLocation, Location>.Copy(al, l);
+
+            l.LocationId = id;
+
+            db.Entry(l).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public static void PutSale(int id, ApiSale aps)
+        {
+            // Create a new car
+            Sale s = new Sale();
+
+            // Copy car
+            PropertyCopier<ApiSale, Sale>.Copy(aps, s);
+
+            s.SaleId = id;
+
+            db.Entry(s).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public static void PutSalesperson(int id, ApiSalesperson asp)
+        {
+            // Create a new car
+            Salesperson sp = new Salesperson();
+
+            // Copy car
+            PropertyCopier<ApiSalesperson, Salesperson>.Copy(asp, sp);
+
+            sp.SalespersonId = id;
+
+            db.Entry(sp).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
     }
 }

@@ -92,5 +92,24 @@ namespace CarSalesApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        [HttpPut]
+        [Route("api/Sale/{id}")]
+        public HttpResponseMessage PutSale(int id, [FromBody]ApiSale aps)
+        {
+            try
+            {
+                // Persist our change.
+                DBAccess.PutSale(id, aps);
+            }
+            catch (Exception e)
+            {
+                // ERROR
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot update record: " + e);
+            }
+
+            // All OK
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
     }
 }
