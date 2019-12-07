@@ -84,7 +84,7 @@ namespace CarSalesApi.Controllers
             catch (Exception e)
             {
                 // ERROR
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record.");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record."+ e.Message);
             }
 
             // All OK

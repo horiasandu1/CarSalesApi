@@ -32,9 +32,18 @@
             <PropertyRef Name="CustomerPhoneId" />
           </Key>
           <Property Name="CustomerPhoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="PhoneId" Type="int" Nullable="false" />
           <Property Name="CustomerPhoneType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarSalesDB.dbo.Inventory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="CarId" />
+            <PropertyRef Name="QuantityOnHand" />
+          </Key>
+          <Property Name="CarId" Type="int" Nullable="false" />
+          <Property Name="QuantityOnHand" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -74,18 +83,6 @@
           <Property Name="SalespersonPhoneNumber" Type="varchar" MaxLength="50" />
           <Property Name="LocationId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Customer_Phone_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="Customer_Phone">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Customer_Phone_Phone">
           <End Role="Phone" Type="Self.Phone" Multiplicity="1" />
           <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
@@ -95,6 +92,18 @@
             </Principal>
             <Dependent Role="Customer_Phone">
               <PropertyRef Name="PhoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="CarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -154,13 +163,19 @@
           <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salesperson" EntityType="Self.Salesperson" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Customer_Phone_Customer" Association="Self.FK_Customer_Phone_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Customer_Phone" EntitySet="Customer_Phone" />
-          </AssociationSet>
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Inventory].[CarId] AS [CarId], 
+    [Inventory].[QuantityOnHand] AS [QuantityOnHand]
+    FROM [dbo].[Inventory] AS [Inventory]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Customer_Phone_Phone" Association="Self.FK_Customer_Phone_Phone">
             <End Role="Phone" EntitySet="Phone" />
             <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Car" Association="Self.FK_Inventory_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Inventory" EntitySet="Inventory" />
           </AssociationSet>
           <AssociationSet Name="FK_Sale_Car" Association="Self.FK_Sale_Car">
             <End Role="Car" EntitySet="Car" />
@@ -194,6 +209,7 @@
           <Property Name="CarModel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CarPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CarCommission" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Inventories" Relationship="Self.FK_Inventory_Car" FromRole="Car" ToRole="Inventory" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Car" FromRole="Car" ToRole="Sale" />
         </EntityType>
         <EntityType Name="Customer">
@@ -206,7 +222,6 @@
           <Property Name="CustomerPhoneId" Type="Int32" />
           <Property Name="CustomerAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CustomerDob" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Customer_Phone" Relationship="Self.FK_Customer_Phone_Customer" FromRole="Customer" ToRole="Customer_Phone" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Customer" FromRole="Customer" ToRole="Sale" />
         </EntityType>
         <EntityType Name="Customer_Phone">
@@ -214,10 +229,8 @@
             <PropertyRef Name="CustomerPhoneId" />
           </Key>
           <Property Name="CustomerPhoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="PhoneId" Type="Int32" Nullable="false" />
           <Property Name="CustomerPhoneType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Phone_Customer" FromRole="Customer_Phone" ToRole="Customer" />
           <NavigationProperty Name="Phone" Relationship="Self.FK_Customer_Phone_Phone" FromRole="Customer_Phone" ToRole="Phone" />
         </EntityType>
         <EntityType Name="Location">
@@ -265,6 +278,27 @@
           <NavigationProperty Name="Location" Relationship="Self.FK_Salesperson_Location" FromRole="Salesperson" ToRole="Location" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Salesperson" FromRole="Salesperson" ToRole="Sale" />
         </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="CarId" />
+            <PropertyRef Name="QuantityOnHand" />
+          </Key>
+          <Property Name="CarId" Type="Int32" Nullable="false" />
+          <Property Name="QuantityOnHand" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Inventory_Car" FromRole="Inventory" ToRole="Car" />
+        </EntityType>
+        <Association Name="FK_Inventory_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sale_Car">
           <End Role="Car" Type="Self.Car" Multiplicity="1" />
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
@@ -274,18 +308,6 @@
             </Principal>
             <Dependent Role="Sale">
               <PropertyRef Name="CarId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Customer_Phone_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="Customer_Phone">
-              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,13 +367,14 @@
           <EntitySet Name="Phones" EntityType="Self.Phone" />
           <EntitySet Name="Sales" EntityType="Self.Sale" />
           <EntitySet Name="Salespersons" EntityType="Self.Salesperson" />
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <AssociationSet Name="FK_Inventory_Car" Association="Self.FK_Inventory_Car">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sale_Car" Association="Self.FK_Sale_Car">
             <End Role="Car" EntitySet="Cars" />
             <End Role="Sale" EntitySet="Sales" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Customer_Phone_Customer" Association="Self.FK_Customer_Phone_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Customer_Phone" EntitySet="Customer_Phone" />
           </AssociationSet>
           <AssociationSet Name="FK_Sale_Customer" Association="Self.FK_Sale_Customer">
             <End Role="Customer" EntitySet="Customers" />
@@ -404,7 +427,6 @@
             <EntityTypeMapping TypeName="CarSalesDBModel.Customer_Phone">
               <MappingFragment StoreEntitySet="Customer_Phone">
                 <ScalarProperty Name="CustomerPhoneId" ColumnName="CustomerPhoneId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
                 <ScalarProperty Name="CustomerPhoneType" ColumnName="CustomerPhoneType" />
               </MappingFragment>
@@ -449,6 +471,14 @@
                 <ScalarProperty Name="SalespersonAddress" ColumnName="SalespersonAddress" />
                 <ScalarProperty Name="SalespersonPhoneNumber" ColumnName="SalespersonPhoneNumber" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="CarSalesDBModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="QuantityOnHand" ColumnName="QuantityOnHand" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

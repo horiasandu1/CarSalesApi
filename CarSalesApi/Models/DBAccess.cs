@@ -91,7 +91,7 @@ namespace CarSalesApi.Models
                 CarId = c.CarId,
                 SalespersonId = c.SalespersonId,
                 SaleDate = (DateTime)c.SaleDate,
-                SaleTotal = (double)c.SaleTotal,
+                SaleTotal = (Decimal)c.SaleTotal,
                 SaleQuantity = (int)c.SaleQuantity,
             }).ToList<ApiSale>();
 
@@ -124,8 +124,7 @@ namespace CarSalesApi.Models
             var customerphones = db.Customer_Phone.ToList();
             List<ApiCustomerPhone> customerphonesApi = customerphones.Select(c => new ApiCustomerPhone()
             {
-                CustomerPhoneId = c.CustomerPhoneId,
-                CustomerId = c.CustomerId,
+                CustomerPhoneId = c.CustomerPhoneId,                
                 PhoneId = c.PhoneId,
                 CustomerPhoneType = c.CustomerPhoneType,
             }).ToList<ApiCustomerPhone>();
@@ -153,7 +152,7 @@ namespace CarSalesApi.Models
 
             var carApi = new ApiCar();
 
-            PropertyCopier<Car, ApiCar>.Copy(car, carApi);
+            PropertyCopier<Car, ApiCar>.Copy(car, carApi,true);
 
             return carApi;
         }
@@ -164,7 +163,7 @@ namespace CarSalesApi.Models
 
             var customerApi = new ApiCustomer();
 
-            PropertyCopier<Customer, ApiCustomer>.Copy(customer, customerApi);
+            PropertyCopier<Customer, ApiCustomer>.Copy(customer, customerApi,true);
 
             return customerApi;
         }
@@ -175,7 +174,7 @@ namespace CarSalesApi.Models
 
             var customerPhoneApi = new ApiCustomerPhone();
 
-            PropertyCopier<Customer_Phone, ApiCustomerPhone>.Copy(customerPhone, customerPhoneApi);
+            PropertyCopier<Customer_Phone, ApiCustomerPhone>.Copy(customerPhone, customerPhoneApi,true);
 
             return customerPhoneApi;
         }
@@ -186,7 +185,7 @@ namespace CarSalesApi.Models
 
             var locationApi = new ApiLocation();
 
-            PropertyCopier<Location, ApiLocation>.Copy(location, locationApi);
+            PropertyCopier<Location, ApiLocation>.Copy(location, locationApi,true);
 
             return locationApi;
         }
@@ -197,7 +196,7 @@ namespace CarSalesApi.Models
 
             var phoneApi = new ApiPhone();
 
-            PropertyCopier<Phone, ApiPhone>.Copy(phone, phoneApi);
+            PropertyCopier<Phone, ApiPhone>.Copy(phone, phoneApi,true);
 
             return phoneApi;
         }
@@ -208,7 +207,7 @@ namespace CarSalesApi.Models
 
             var saleApi = new ApiSale();
 
-            PropertyCopier<Sale, ApiSale>.Copy(sale, saleApi);
+            PropertyCopier<Sale, ApiSale>.Copy(sale, saleApi,true);
 
             return saleApi;
         }
@@ -219,7 +218,7 @@ namespace CarSalesApi.Models
 
             var salespersonApi = new ApiSalesperson();
 
-            PropertyCopier<Salesperson, ApiSalesperson>.Copy(salesperson, salespersonApi);
+            PropertyCopier<Salesperson, ApiSalesperson>.Copy(salesperson, salespersonApi,true);
 
             return salespersonApi;
         }
@@ -231,7 +230,7 @@ namespace CarSalesApi.Models
             Car c = new Car();
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiCar, Car>.Copy(ac, c);
+            PropertyCopier<ApiCar, Car>.Copy(ac, c,true);
 
             // Tell EF we want to add the customer.
             db.Cars.Add(c);
@@ -244,10 +243,10 @@ namespace CarSalesApi.Models
         {
 
             // Create a new EF Customer.
-            Customer c = new Customer();
+            Customer c = new Customer();            
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c);
+            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c,true);
 
             // Tell EF we want to add the customer.
             db.Customers.Add(c);
@@ -263,7 +262,7 @@ namespace CarSalesApi.Models
             Sale s = new Sale();
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiSale, Sale>.Copy(sa, s);
+            PropertyCopier<ApiSale, Sale>.Copy(sa, s,true);
 
             // Tell EF we want to add the customer.
             db.Sales.Add(s);
@@ -279,7 +278,7 @@ namespace CarSalesApi.Models
             Salesperson s = new Salesperson();
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiSalesperson, Salesperson>.Copy(sp, s);
+            PropertyCopier<ApiSalesperson, Salesperson>.Copy(sp, s,true);
 
             // Tell EF we want to add the customer.
             db.Salespersons.Add(s);
@@ -295,7 +294,7 @@ namespace CarSalesApi.Models
             Phone p = new Phone();
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiPhone, Phone>.Copy(ph, p);
+            PropertyCopier<ApiPhone, Phone>.Copy(ph, p,true);
 
             // Tell EF we want to add the customer.
             db.Phones.Add(p);
@@ -311,7 +310,7 @@ namespace CarSalesApi.Models
             Customer_Phone p = new Customer_Phone();
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(pc, p);
+            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(pc, p,true);
 
             // Tell EF we want to add the customer.
             db.Customer_Phone.Add(p);
@@ -327,7 +326,7 @@ namespace CarSalesApi.Models
             Location l = new Location();
 
             // Copy the Simplified customer to the EF customer using the tool I provided.
-            PropertyCopier<ApiLocation, Location>.Copy(lo, l);
+            PropertyCopier<ApiLocation, Location>.Copy(lo, l,true);
 
             // Tell EF we want to add the customer.
             db.Locations.Add(l);
@@ -445,7 +444,7 @@ namespace CarSalesApi.Models
             Car c = new Car();
 
             // Copy car
-            PropertyCopier<ApiCar, Car>.Copy(ac, c);
+            PropertyCopier<ApiCar, Car>.Copy(ac, c,true);
 
             c.CarId = id;
 
@@ -460,7 +459,7 @@ namespace CarSalesApi.Models
             Customer c = new Customer();
 
             // Copy car
-            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c);
+            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c,true);
 
             c.CustomerId = id;
 
@@ -475,7 +474,7 @@ namespace CarSalesApi.Models
             Customer_Phone cp = new Customer_Phone();
 
             // Copy car
-            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(acp, cp);
+            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(acp, cp,true);
 
             cp.CustomerPhoneId = id;
 
@@ -490,7 +489,7 @@ namespace CarSalesApi.Models
             Phone p = new Phone();
 
             // Copy car
-            PropertyCopier<ApiPhone, Phone>.Copy(ap, p);
+            PropertyCopier<ApiPhone, Phone>.Copy(ap, p,true);
 
             p.PhoneId = id;
 
@@ -505,7 +504,7 @@ namespace CarSalesApi.Models
             Location l = new Location();
 
             // Copy car
-            PropertyCopier<ApiLocation, Location>.Copy(al, l);
+            PropertyCopier<ApiLocation, Location>.Copy(al, l,true);
 
             l.LocationId = id;
 
@@ -520,7 +519,7 @@ namespace CarSalesApi.Models
             Sale s = new Sale();
 
             // Copy car
-            PropertyCopier<ApiSale, Sale>.Copy(aps, s);
+            PropertyCopier<ApiSale, Sale>.Copy(aps, s,true);
 
             s.SaleId = id;
 
@@ -535,7 +534,7 @@ namespace CarSalesApi.Models
             Salesperson sp = new Salesperson();
 
             // Copy car
-            PropertyCopier<ApiSalesperson, Salesperson>.Copy(asp, sp);
+            PropertyCopier<ApiSalesperson, Salesperson>.Copy(asp, sp,true);
 
             sp.SalespersonId = id;
 

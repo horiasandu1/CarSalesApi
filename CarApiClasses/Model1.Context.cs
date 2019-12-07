@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CarSalesApi
+namespace CarApiClasses
 {
     using System;
     using System.Data.Entity;
@@ -32,5 +32,6 @@ namespace CarSalesApi
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<Salesperson> Salespersons { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
     }
 }

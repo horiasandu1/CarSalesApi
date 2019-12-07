@@ -7,23 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CarSalesApi
+namespace CarApiClasses
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Sale
+    public partial class Inventory
     {
-        public int SaleId { get; set; }
-        public int CustomerId { get; set; }
         public int CarId { get; set; }
-        public int SalespersonId { get; set; }
-        public Nullable<System.DateTime> SaleDate { get; set; }
-        public Nullable<decimal> SaleTotal { get; set; }
-        public Nullable<int> SaleQuantity { get; set; }
+        public int QuantityOnHand { get; set; }
     
         public virtual Car Car { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Salesperson Salesperson { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Utils
     /// <typeparam name="TChild"></typeparam>
     public class PropertyCopier<TParent, TChild> where TParent : class where TChild : class
     {
-        public static void Copy(TParent parent, TChild child)
+        public static void Copy(TParent parent, TChild child, bool ignoreSubType = false)
         {
             var parentProperties = parent.GetType().GetProperties();
             var childProperties = child.GetType().GetProperties();
@@ -22,11 +22,15 @@ namespace Utils
             {
                 foreach (var childProperty in childProperties)
                 {
-                    if (parentProperty.Name == childProperty.Name
-                        && parentProperty.PropertyType == childProperty.PropertyType)
+                    if (parentProperty.Name == childProperty.Name)
                     {
-                        childProperty.SetValue(child, parentProperty.GetValue(parent));
-                        break;
+                        if (((parentProperty.PropertyType.FullName.Contains(childProperty.PropertyType.Name)
+                        || childProperty.PropertyType.FullName.Contains(parentProperty.PropertyType.Name)) && ignoreSubType)
+                        || (parentProperty.PropertyType == childProperty.PropertyType))
+                        {
+                            childProperty.SetValue(child, parentProperty.GetValue(parent));
+                            break;
+                        }
                     }
                 }
             }

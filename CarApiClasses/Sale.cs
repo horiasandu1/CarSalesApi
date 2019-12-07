@@ -7,19 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CarSalesApi
+namespace CarApiClasses
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer_Phone
+    public partial class Sale
     {
-        public int CustomerPhoneId { get; set; }
+        public int SaleId { get; set; }
         public int CustomerId { get; set; }
-        public int PhoneId { get; set; }
-        public string CustomerPhoneType { get; set; }
+        public int CarId { get; set; }
+        public int SalespersonId { get; set; }
+        public Nullable<System.DateTime> SaleDate { get; set; }
+        public Nullable<decimal> SaleTotal { get; set; }
+        public Nullable<int> SaleQuantity { get; set; }
     
+        public virtual Car Car { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual Phone Phone { get; set; }
+        public virtual Salesperson Salesperson { get; set; }
     }
 }
