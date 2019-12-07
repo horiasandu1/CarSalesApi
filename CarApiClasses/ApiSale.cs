@@ -13,7 +13,7 @@ namespace CarApiClasses
         public int CarId { get; set; }
         public int SalespersonId { get; set; }
         public DateTime SaleDate { get; set; }
-        public double SaleTotal { get; set; }
+        public decimal SaleTotal { get; set; }
         public int SaleQuantity { get; set; }
 
     }

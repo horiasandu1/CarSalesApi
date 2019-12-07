@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CarSalesApi
+namespace CarApiClasses
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace CarSalesApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.Customer_Phone = new HashSet<Customer_Phone>();
             this.Sales = new HashSet<Sale>();
         }
     
@@ -28,8 +27,6 @@ namespace CarSalesApi
         public string CustomerAddress { get; set; }
         public Nullable<System.DateTime> CustomerDob { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer_Phone> Customer_Phone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sales { get; set; }
     }

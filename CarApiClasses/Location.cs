@@ -7,27 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CarSalesApi
+namespace CarApiClasses
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Car
+    public partial class Location
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Car()
+        public Location()
         {
-            this.Sales = new HashSet<Sale>();
+            this.Salespersons = new HashSet<Salesperson>();
         }
     
-        public int CarId { get; set; }
-        public string CarColor { get; set; }
-        public string CarType { get; set; }
-        public string CarModel { get; set; }
-        public Nullable<decimal> CarPrice { get; set; }
-        public Nullable<decimal> CarCommission { get; set; }
+        public int LocationId { get; set; }
+        public string LocationStateProv { get; set; }
+        public string LocationAddress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<Salesperson> Salespersons { get; set; }
     }
 }
