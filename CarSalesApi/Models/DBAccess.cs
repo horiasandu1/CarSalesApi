@@ -441,106 +441,94 @@ namespace CarSalesApi.Models
         public static void PutCar(int id, ApiCar ac)
         {
             // Create a new car
-            Car c = new Car();
-
+            Car c = db.Cars.Find(id);
             // Copy car
-            PropertyCopier<ApiCar, Car>.Copy(ac, c,true);
-
-            c.CarId = id;
-
-            db.Entry(c).State = System.Data.Entity.EntityState.Modified;
-
-            db.SaveChanges();
+            if(ac.CarId == id) { 
+                PropertyCopier<ApiCar, Car>.Copy(ac, c,true);
+                db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public static void PutCustomer(int id, ApiCustomer ac)
         {
             // Create a new car
-            Customer c = new Customer();
+            Customer c = db.Customers.Find(id);
 
             // Copy car
-            PropertyCopier<ApiCustomer, Customer>.Copy(ac, c,true);
-
-            c.CustomerId = id;
-
-            db.Entry(c).State = System.Data.Entity.EntityState.Modified;
-
-            db.SaveChanges();
+            if (ac.CustomerId == id)
+            {
+                PropertyCopier<ApiCustomer, Customer>.Copy(ac, c, true);
+                db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public static void PutCustomerPhone(int id, ApiCustomerPhone acp)
         {
             // Create a new car
-            Customer_Phone cp = new Customer_Phone();
+            Customer_Phone cp = db.Customer_Phone.Find(id);
 
             // Copy car
-            PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(acp, cp,true);
-
-            cp.CustomerPhoneId = id;
-
-            db.Entry(cp).State = System.Data.Entity.EntityState.Modified;
-
-            db.SaveChanges();
+            if (acp.CustomerPhoneId == id)
+            {
+                PropertyCopier<ApiCustomerPhone, Customer_Phone>.Copy(acp, cp, true);
+                db.Entry(cp).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public static void PutPhone(int id, ApiPhone ap)
         {
             // Create a new car
-            Phone p = new Phone();
+            Phone p = db.Phones.Find(id);
 
             // Copy car
-            PropertyCopier<ApiPhone, Phone>.Copy(ap, p,true);
-
-            p.PhoneId = id;
-
+            if(ap.PhoneId == id)
+            PropertyCopier<ApiPhone, Phone>.Copy(ap, p,true);            
             db.Entry(p).State = System.Data.Entity.EntityState.Modified;
-
             db.SaveChanges();
         }
 
         public static void PutLocation(int id, ApiLocation al)
         {
             // Create a new car
-            Location l = new Location();
+            Location l = db.Locations.Find(id);
 
             // Copy car
-            PropertyCopier<ApiLocation, Location>.Copy(al, l,true);
-
-            l.LocationId = id;
-
-            db.Entry(l).State = System.Data.Entity.EntityState.Modified;
-
-            db.SaveChanges();
+            if(al.LocationId == id) { 
+                PropertyCopier<ApiLocation, Location>.Copy(al, l,true);
+                db.Entry(l).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public static void PutSale(int id, ApiSale aps)
         {
             // Create a new car
-            Sale s = new Sale();
+            Sale s = db.Sales.Find(id);
 
             // Copy car
-            PropertyCopier<ApiSale, Sale>.Copy(aps, s,true);
-
-            s.SaleId = id;
-
-            db.Entry(s).State = System.Data.Entity.EntityState.Modified;
-
-            db.SaveChanges();
+            if (aps.SaleId == id)
+            {
+                PropertyCopier<ApiSale, Sale>.Copy(aps, s, true);
+                db.Entry(s).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public static void PutSalesperson(int id, ApiSalesperson asp)
         {
             // Create a new car
-            Salesperson sp = new Salesperson();
+            Salesperson sp = db.Salespersons.Find(id);
 
             // Copy car
-            PropertyCopier<ApiSalesperson, Salesperson>.Copy(asp, sp,true);
-
-            sp.SalespersonId = id;
-
-            db.Entry(sp).State = System.Data.Entity.EntityState.Modified;
-
-            db.SaveChanges();
+            if (asp.SalespersonId == id)
+            {
+                PropertyCopier<ApiSalesperson, Salesperson>.Copy(asp, sp, true);
+                db.Entry(sp).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
     }
