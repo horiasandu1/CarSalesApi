@@ -56,7 +56,6 @@ namespace CarSalesApi.Controllers
         [Route("api/Car/{id}")]
         public HttpResponseMessage Delete(int id)
         {
-
             try
             {
                 // Persist our change.
@@ -84,7 +83,7 @@ namespace CarSalesApi.Controllers
             catch (Exception e)
             {
                 // ERROR
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record.");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create record." + e.StackTrace);
             }
 
             // All OK

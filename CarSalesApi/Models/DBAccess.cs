@@ -38,8 +38,8 @@ namespace CarSalesApi.Models
                 CarColor = c.CarColor,
                 CarType = c.CarType,
                 CarModel = c.CarModel,
-                CarPrice = (double)c.CarPrice,
-                CarCommission = (double)c.CarCommission
+                CarPrice = (decimal)c.CarPrice,
+                CarCommission = (decimal)c.CarCommission
             }).ToList<ApiCar>();
             return carsApi;
 
