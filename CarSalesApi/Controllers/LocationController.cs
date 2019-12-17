@@ -70,7 +70,7 @@ namespace CarSalesApi.Controllers
             catch (Exception e)
             {
                 // ERROR
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "An error occured, Cannot delete current record !");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "An error occured, Cannot delete current record !" + e.StackTrace);
             }
 
             // All OK
